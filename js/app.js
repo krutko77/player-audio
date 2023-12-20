@@ -104,61 +104,7 @@ let playlists = [{
 				isHot: false,
 			},
 		],
-	},
-
-	{
-		title: "Hip-Hop Hits",
-		coverImageUrl: "../../img/playlist1-img.jpg",
-		info: {
-			totalTracksCount: "4 tracks",
-			totalTracksDuration: "12m 13s",
-			artistNames: "Eminem, 50cent, Lloyd Banks",
-			otherArtist: "and others",
-		},
-		tracks: [
-			{
-				coverImageUrl: "../../img/Eminem.jpg",
-				artistName: "Eminem - ",
-				title: "Rap God",
-				fileUrl: "../../files/Eminem_-_Rap_God.mp3",
-				isHot: true,
-				trackImgId: "track-img-1",
-				artistNameId: "artist-name-1",
-				trackNameId: "track-name-1",
-				audioBoxId: "audio-box-1",
-			},
-			{
-				coverImageUrl: "../../img/50-cent.jpg",
-				artistName: "50cent - ",
-				title: "In da Club",
-				fileUrl: "../../files/50_Cent_-_In_Da_Club_47965582.mp3",
-				isHot: false,
-				trackImgId: "track-img-2",
-				artistNameId: "artist-name-2",
-				trackNameId: "track-name-2",
-				audioBoxId: "audio-box-2",
-			},
-			{
-				coverImageUrl: "../../img/DMX.jpg",
-				artistName: "DMX - ",
-				title: "Give It To Ya",
-				fileUrl: "../../files/DMX_-_X_Gon_Give_It_to_Ya_73088122.mp3",
-				isHot: true,
-				trackImgId: "track-img-3",
-				artistNameId: "artist-name-3",
-				trackNameId: "track-name-3",
-				audioBoxId: "audio-box-3",
-			},
-			{
-				coverImageUrl: "../../img/Eminem-2.jpg",
-				artistName: "Eminem feat 50 Cent, Cashis - ",
-				title: "You Don't Know",
-				fileUrl:
-				"../../files/Eminem_50_Cent_Lloyd_Banks_Cahis_-_You_Dont_Know_48270332.mp3",
-				isHot: false,
-			},
-		],
-	},
+	}
 ]
 
 
@@ -173,27 +119,27 @@ function renderPlaylists (inputPlaylists) {
 }
 
 function renderPlaylist(playlistForRendering) {
-	renderPlaylistHeader(playlistForRendering);
-	/* renderPlaylistTracks(playlistForRendering);  */
- }
-
-function renderPlaylistHeader(playlistForRendering) {
 	const contentPage = document.getElementById("content-page");
 	let playlistBody = document.createElement("div");
 	playlistBody.classList.add("content__playlist", "playlist");
 	contentPage.append(playlistBody);
 
-	let playlistDescription = document.createElement("div");
-	playlistDescription.classList.add("playlist__description", "description");
-	playlistBody.append(playlistDescription);
+	renderPlaylistHeader(playlistForRendering, playlistBody);
+	renderPlaylistTracks(playlistForRendering, playlistBody); 
+}
+
+function renderPlaylistHeader(playlistForRendering, arg) {
+	let playlistDescriptionElement = document.createElement("div");
+	playlistDescriptionElement.classList.add("playlist__description", "description");
+	arg.append(playlistDescriptionElement);
 
 	let playlistDescriptionImgBox = document.createElement("div");
 	playlistDescriptionImgBox.classList.add("description__img-box");
-	playlistDescription.append(playlistDescriptionImgBox);
+	playlistDescriptionElement.append(playlistDescriptionImgBox);
 
 	let playlistDescriptionTextBox = document.createElement("div");
 	playlistDescriptionTextBox.classList.add("description__text-box", "text-box");
-	playlistDescription.append(playlistDescriptionTextBox);
+	playlistDescriptionElement.append(playlistDescriptionTextBox);
 
 	let playlistTextBoxLabel = document.createElement("p");
 	playlistTextBoxLabel.classList.add("text-box__label");
@@ -230,84 +176,79 @@ function renderPlaylistHeader(playlistForRendering) {
 	playlistArtistsList.append(playlistOtherArtists);
 }
 
-/* function renderPlaylistTracks(playlistForRendering) {
-  let divElement = document.getElementsByName(`${index}playlistName`);
+function renderPlaylistTracks(playlistForRendering, arg) {
+	let playlistTracksElement = document.createElement("div");
+	playlistTracksElement.classList.add("playlist__tracks", "tracks");
+	arg.append(playlistTracksElement);
 
-  const playlistTracksListElement = divElement[0].querySelector("[data-role='tracks-list']");
-  const template = document.getElementById("track-template");
- 
-	const listTrack = playlistForRendering.tracks.map((track, index) => {
+	let tracksList = document.createElement("ul");
+	tracksList.classList.add("tracks__list", "list");
+	playlistTracksElement.append(tracksList);
 
-	const trackElement = document.createElement("li");
-	trackElement.classList.add("list__item");
-	trackElement.setAttribute('name', index + 'trackName');
-	trackElement.innerHTML = template.innerHTML;
-	playlistTracksListElement.appendChild(trackElement);
-	renderPlaylistTrack(track, index);
-	return trackElement;
-  })
-}
-
-function renderPlaylistTrack(inputTrackForRendering, index) {
-  let liElement = document.getElementsByName(`${index}trackName`);
-
-  let trackImageElement = document.createElement("img");
-  trackImageElement.classList.add("grid__img");
-  trackImageElement.src = inputTrackForRendering.coverImageUrl;
-  trackImageElement.alt = "artist image";
-  trackImageElement.width = "48";
-  trackImageElement.height = "48";
-  const trackImageBox = liElement[0].querySelector("[data-role='img-box']");
-  trackImageBox.append(trackImageElement);
-
-  let trackIconElement = document.createElement("img");
-  trackIconElement.classList.add("grid__icon");
-  trackIconElement.src = "../img/light-icon.svg";
-  trackIconElement.alt = "light image";
-  trackIconElement.width = "12";
-  trackIconElement.height = "12";
-  const iconBox = liElement[0].querySelector("[data-role='icon']");
-
-  if (inputTrackForRendering.isHot) {
-   iconBox.append(trackIconElement);
+	for (let i = 0; i < playlistForRendering.tracks.length; i++) { 
+		const track = playlistForRendering.tracks[i]; 
+		renderTrack(track, tracksList); 
   }
-
-  let trackArtistNameElement = document.createElement("span");
-  trackArtistNameElement.append(inputTrackForRendering.artistName);
-  iconBox.after(trackArtistNameElement);
-
-  let songTitleElement = document.createElement("span");
-  songTitleElement.classList.add("grid__song-title");
-  songTitleElement.append(inputTrackForRendering.title);
-  const trackTitle = liElement[0].querySelector("[data-role='track-title']");
-  trackTitle.appendChild(songTitleElement);
-  
-
-  let trackAudioElement = document.createElement("audio");
-  trackAudioElement.classList.add("grid__audio");
-  trackAudioElement.src = inputTrackForRendering.fileUrl;
-  trackAudioElement.controls = true;
-  const audioBox = liElement[0].querySelector("[data-role='audio-box']");
-  audioBox.append(trackAudioElement);
 }
- */
 
 
-
-/* function renderPlaylists (playlistsForRendering) {
+function renderTrack(inputTrack, arg) {
+	let trackElement = document.createElement("li");
+	trackElement.classList.add("list__item");
 	
-	const playlistTemplate = document.getElementById("playlist-template");
- 
-	const listPlaylist = playlists.map((playlist, index) => {
 
-	let playlistBody = document.createElement("div");
-	playlistBody.classList.add("content__playlist", "playlist");
-	playlistBody.setAttribute('name', index + 'playlistName');	
-	playlistBody.innerHTML = playlistTemplate.innerHTML;
-	contentPage.append(playlistBody);
-	
-	renderPlaylist(playlist, index);
-	return playlistBody;
-  })
- }
- */
+	let trackBlock = document.createElement("div");
+	trackBlock.classList.add("list__grid", "grid");
+	trackElement.append(trackBlock);
+
+	let trackImageBox = document.createElement("div");
+	trackImageBox.classList.add("grid__img-box");
+	trackBlock.append(trackImageBox);
+
+	let trackImage = document.createElement("img");
+	trackImage.classList.add("grid__img");
+	trackImage.src = inputTrack.coverImageUrl;
+	trackImage.alt = "artist image";
+	trackImage.width = "48";
+	trackImage.height = "48";
+	trackImageBox.append(trackImage);
+
+	let trackTitle = document.createElement("div");
+	trackTitle.classList.add("grid__track-title");
+	trackBlock.append(trackTitle);
+
+	let trackIconBox = document.createElement("span");
+	trackIconBox.classList.add("grid__icon");
+	trackTitle.append(trackIconBox);
+
+	let trackIcon = document.createElement("img");
+	trackIcon.src = "../img/light-icon.svg";
+	trackIcon.alt = "light image";
+	trackIcon.width = "12";
+	trackIcon.height = "12";
+
+	if (inputTrack.isHot) {
+		trackIconBox.append(trackIcon);
+	}
+
+	let trackArtistName = document.createElement("span");
+	trackArtistName.append(inputTrack.artistName);
+	trackTitle.append(trackArtistName);
+
+	let songTitle = document.createElement("span");
+	songTitle.classList.add("grid__song-title");
+	songTitle.append(inputTrack.title);
+	trackTitle.append(songTitle);
+
+	let trackAudio = document.createElement("audio");
+	trackAudio.classList.add("grid__audio");
+	trackAudio.src = inputTrack.fileUrl;
+	trackAudio.controls = true;
+   trackBlock.append(trackAudio);
+
+	arg.append(trackElement);
+}
+
+
+
+
