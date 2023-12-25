@@ -1,7 +1,7 @@
 import { renderTrack } from "./track/renderTrackComponent.js";
 import { createElementWithClass } from "../../../helpers.js";
 
-export function renderPlaylistTracks(playlistForRendering, playlistBody) {
+export function renderPlaylistTracks(playlistForRendering, playlistBody, callback) {
 	let playlistTracksElement = createElementWithClass("div", "playlist__tracks", "tracks");
 	playlistBody.append(playlistTracksElement);
 
@@ -12,5 +12,7 @@ export function renderPlaylistTracks(playlistForRendering, playlistBody) {
 		const track = playlistForRendering.tracks[i];
 		renderTrack(track, tracksList);
 	}
+
+	callback(tracksList);
 }
 

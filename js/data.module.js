@@ -1,4 +1,3 @@
-
 export let playlists = [{
 	title: "Hip-Hop Hits",
 	coverImageUrl: "../../img/playlist1-img.jpg",
@@ -49,8 +48,8 @@ export let playlists = [{
 			fileUrl:
 				"../../files/Eminem_50_Cent_Lloyd_Banks_Cahis_-_You_Dont_Know_48270332.mp3",
 			isHot: false,
-		},
-	],
+		}
+	]
 },
 
 {
@@ -102,7 +101,51 @@ export let playlists = [{
 			title: "Brand Nubian",
 			fileUrl: "../../files/Brand_Nubian_-_Brand_Nubian_48295459.mp3",
 			isHot: false,
-		},
-	],
+		}
+	]
 }
+]
+
+export let newTracks = [
+	{
+		coverImageUrl: "../../img/Eminem.jpg",
+		artistName: "Eminem - ",
+		title: "Rap God",
+		fileUrl: "../../files/Eminem_-_Rap_God.mp3",
+		isHot: true,
+		trackImgId: "track-img-1",
+		artistNameId: "artist-name-1",
+		trackNameId: "track-name-1",
+		audioBoxId: "audio-box-1",
+	},
+	{
+		coverImageUrl: "../../img/50-cent.jpg",
+		artistName: "50cent - ",
+		title: "In da Club",
+		fileUrl: "../../files/50_Cent_-_In_Da_Club_47965582.mp3",
+		isHot: false,
+		trackImgId: "track-img-2",
+		artistNameId: "artist-name-2",
+		trackNameId: "track-name-2",
+		audioBoxId: "audio-box-2",
+	},
+	{
+		coverImageUrl: "../../img/DMX.jpg",
+		artistName: "DMX - ",
+		title: "Give It To Ya",
+		fileUrl: "../../files/DMX_-_X_Gon_Give_It_to_Ya_73088122.mp3",
+		isHot: true,
+		trackImgId: "track-img-3",
+		artistNameId: "artist-name-3",
+		trackNameId: "track-name-3",
+		audioBoxId: "audio-box-3",
+	},
+	{
+		coverImageUrl: "../../img/Eminem-2.jpg",
+		artistName: "Eminem feat 50 Cent, Cashis - ",
+		title: "You Don't Know",
+		fileUrl:
+			"../../files/Eminem_50_Cent_Lloyd_Banks_Cahis_-_You_Dont_Know_48270332.mp3",
+		isHot: false,
+	}
 ]
